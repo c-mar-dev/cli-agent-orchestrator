@@ -120,7 +120,7 @@ class TestGetInboxMessagesEndpoint:
         data = response.json()
         assert "detail" in data
         assert "Invalid status" in data["detail"]
-        assert "pending, delivered, failed" in data["detail"]
+        assert "pending, retrying, delivered, failed, dead_letter" in data["detail"]
 
     def test_limit_exceeds_maximum(self, client):
         """Test that limit parameter is properly validated."""
