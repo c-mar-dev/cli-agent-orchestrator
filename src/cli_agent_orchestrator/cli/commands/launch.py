@@ -6,17 +6,24 @@ import subprocess
 import click
 import requests
 
-from cli_agent_orchestrator.constants import DEFAULT_PROVIDER, PROVIDERS, SERVER_HOST, SERVER_PORT
+from cli_agent_orchestrator.constants import (
+    DEFAULT_PROVIDER,
+    DEFAULT_WORKING_DIRECTORY,
+    PROVIDERS,
+    SERVER_HOST,
+    SERVER_PORT,
+)
 
 
 @click.command()
 @click.option("--agents", required=True, help="Agent profile to launch")
 @click.option("--session-name", help="Name of the session (default: auto-generated)")
 @click.option("--headless", is_flag=True, help="Launch in detached mode")
+@click.option("--working-directory", help="Working directory for launched terminal")
 @click.option(
     "--provider", default=DEFAULT_PROVIDER, help=f"Provider to use (default: {DEFAULT_PROVIDER})"
 )
-def launch(agents, session_name, headless, provider):
+def launch(agents, session_name, headless, working_directory, provider):
     """Launch cao session with specified agent profile."""
     try:
         # Validate provider
@@ -25,12 +32,14 @@ def launch(agents, session_name, headless, provider):
                 f"Invalid provider '{provider}'. Available providers: {', '.join(PROVIDERS)}"
             )
 
+        launch_cwd = working_directory or DEFAULT_WORKING_DIRECTORY or os.getcwd()
+
         # Call API to create session
         url = f"http://{SERVER_HOST}:{SERVER_PORT}/sessions"
         params = {
             "provider": provider,
             "agent_profile": agents,
-            "working_directory": os.path.realpath(os.getcwd()),  # Pass normalized current directory
+            "working_directory": os.path.realpath(launch_cwd),  # Pass normalized path
         }
         if session_name:
             params["session_name"] = session_name

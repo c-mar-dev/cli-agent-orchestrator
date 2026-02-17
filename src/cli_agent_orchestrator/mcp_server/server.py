@@ -19,6 +19,21 @@ logger = logging.getLogger(__name__)
 
 # Environment variable to enable/disable working_directory parameter
 ENABLE_WORKING_DIRECTORY = os.getenv("CAO_ENABLE_WORKING_DIRECTORY", "false").lower() == "true"
+CAO_API_REQUEST_TIMEOUT_SECONDS = float(os.getenv("CAO_API_REQUEST_TIMEOUT_SECONDS", "30"))
+CAO_HANDOFF_IDLE_WAIT_SECONDS = float(os.getenv("CAO_HANDOFF_IDLE_WAIT_SECONDS", "30"))
+CAO_HANDOFF_POST_IDLE_GRACE_SECONDS = float(os.getenv("CAO_HANDOFF_POST_IDLE_GRACE_SECONDS", "2"))
+CAO_ASSIGN_POST_IDLE_GRACE_SECONDS = float(os.getenv("CAO_ASSIGN_POST_IDLE_GRACE_SECONDS", "2"))
+CAO_HANDOFF_STATUS_POLL_SECONDS = float(os.getenv("CAO_HANDOFF_STATUS_POLL_SECONDS", "1"))
+
+
+def _api_base_url() -> str:
+    """Resolve API base URL at call time so tests can target isolated servers."""
+    return os.getenv("CAO_API_BASE_URL", API_BASE_URL).rstrip("/")
+
+
+def _api_url(path: str) -> str:
+    """Build API URL from path."""
+    return f"{_api_base_url()}{path if path.startswith('/') else '/' + path}"
 
 # Create MCP server
 mcp = FastMCP(
@@ -58,7 +73,10 @@ def _create_terminal(
     current_terminal_id = os.environ.get("CAO_TERMINAL_ID")
     if current_terminal_id:
         # Get terminal metadata via API
-        response = requests.get(f"{API_BASE_URL}/terminals/{current_terminal_id}")
+        response = requests.get(
+            _api_url(f"/terminals/{current_terminal_id}"),
+            timeout=CAO_API_REQUEST_TIMEOUT_SECONDS,
+        )
         response.raise_for_status()
         terminal_metadata = response.json()
 
@@ -69,7 +87,8 @@ def _create_terminal(
         if working_directory is None:
             try:
                 response = requests.get(
-                    f"{API_BASE_URL}/terminals/{current_terminal_id}/working-directory"
+                    _api_url(f"/terminals/{current_terminal_id}/working-directory"),
+                    timeout=CAO_API_REQUEST_TIMEOUT_SECONDS,
                 )
                 if response.status_code == 200:
                     working_directory = response.json().get("working_directory")
@@ -89,7 +108,11 @@ def _create_terminal(
         if working_directory:
             params["working_directory"] = working_directory
 
-        response = requests.post(f"{API_BASE_URL}/sessions/{session_name}/terminals", params=params)
+        response = requests.post(
+            _api_url(f"/sessions/{session_name}/terminals"),
+            params=params,
+            timeout=CAO_API_REQUEST_TIMEOUT_SECONDS,
+        )
         response.raise_for_status()
         terminal = response.json()
     else:
@@ -103,7 +126,11 @@ def _create_terminal(
         if working_directory:
             params["working_directory"] = working_directory
 
-        response = requests.post(f"{API_BASE_URL}/sessions", params=params)
+        response = requests.post(
+            _api_url("/sessions"),
+            params=params,
+            timeout=CAO_API_REQUEST_TIMEOUT_SECONDS,
+        )
         response.raise_for_status()
         terminal = response.json()
 
@@ -121,7 +148,9 @@ def _send_direct_input(terminal_id: str, message: str) -> None:
         Exception: If sending fails
     """
     response = requests.post(
-        f"{API_BASE_URL}/terminals/{terminal_id}/input", params={"message": message}
+        _api_url(f"/terminals/{terminal_id}/input"),
+        params={"message": message},
+        timeout=CAO_API_REQUEST_TIMEOUT_SECONDS,
     )
     response.raise_for_status()
 
@@ -145,8 +174,9 @@ def _send_to_inbox(receiver_id: str, message: str) -> Dict[str, Any]:
         raise ValueError("CAO_TERMINAL_ID not set - cannot determine sender")
 
     response = requests.post(
-        f"{API_BASE_URL}/terminals/{receiver_id}/inbox/messages",
+        _api_url(f"/terminals/{receiver_id}/inbox/messages"),
         params={"sender_id": sender_id, "message": message},
+        timeout=CAO_API_REQUEST_TIMEOUT_SECONDS,
     )
     response.raise_for_status()
     return response.json()
@@ -164,40 +194,102 @@ async def _handoff_impl(
         terminal_id, provider = _create_terminal(agent_profile, working_directory)
 
         # Wait for terminal to be IDLE before sending message
-        if not wait_until_terminal_status(terminal_id, TerminalStatus.IDLE, timeout=30.0):
+        if not wait_until_terminal_status(
+            terminal_id,
+            TerminalStatus.IDLE,
+            timeout=CAO_HANDOFF_IDLE_WAIT_SECONDS,
+            polling_interval=CAO_HANDOFF_STATUS_POLL_SECONDS,
+            blocked_statuses=(TerminalStatus.WAITING_USER_ANSWER,),
+        ):
+            status = "unknown"
+            try:
+                status_response = requests.get(
+                    _api_url(f"/terminals/{terminal_id}"),
+                    timeout=CAO_API_REQUEST_TIMEOUT_SECONDS,
+                )
+                if status_response.status_code == 200:
+                    status = status_response.json().get("status", "unknown")
+            except Exception:
+                pass
+
+            if status == TerminalStatus.WAITING_USER_ANSWER.value:
+                return HandoffResult(
+                    success=False,
+                    message=(
+                        f"Terminal {terminal_id} is blocked on interactive user input "
+                        "(status=waiting_user_answer)."
+                    ),
+                    output=None,
+                    terminal_id=terminal_id,
+                )
+
             return HandoffResult(
                 success=False,
-                message=f"Terminal {terminal_id} did not reach IDLE status within 30 seconds",
+                message=(
+                    f"Terminal {terminal_id} did not reach IDLE status within "
+                    f"{CAO_HANDOFF_IDLE_WAIT_SECONDS} seconds (status={status})"
+                ),
                 output=None,
                 terminal_id=terminal_id,
             )
 
-        await asyncio.sleep(2)  # wait another 2s
+        await asyncio.sleep(CAO_HANDOFF_POST_IDLE_GRACE_SECONDS)
 
         # Send message to terminal
         _send_direct_input(terminal_id, message)
 
         # Monitor until completion with timeout
         if not wait_until_terminal_status(
-            terminal_id, TerminalStatus.COMPLETED, timeout=timeout, polling_interval=1.0
+            terminal_id,
+            TerminalStatus.COMPLETED,
+            timeout=timeout,
+            polling_interval=CAO_HANDOFF_STATUS_POLL_SECONDS,
+            blocked_statuses=(TerminalStatus.WAITING_USER_ANSWER,),
         ):
+            status = "unknown"
+            try:
+                status_response = requests.get(
+                    _api_url(f"/terminals/{terminal_id}"),
+                    timeout=CAO_API_REQUEST_TIMEOUT_SECONDS,
+                )
+                if status_response.status_code == 200:
+                    status = status_response.json().get("status", "unknown")
+            except Exception:
+                pass
+
+            if status == TerminalStatus.WAITING_USER_ANSWER.value:
+                return HandoffResult(
+                    success=False,
+                    message=(
+                        f"Handoff blocked: terminal {terminal_id} is waiting for interactive user "
+                        "answer (permissions prompt)."
+                    ),
+                    output=None,
+                    terminal_id=terminal_id,
+                )
+
             return HandoffResult(
                 success=False,
-                message=f"Handoff timed out after {timeout} seconds",
+                message=f"Handoff timed out after {timeout} seconds (status={status})",
                 output=None,
                 terminal_id=terminal_id,
             )
 
         # Get the response
         response = requests.get(
-            f"{API_BASE_URL}/terminals/{terminal_id}/output", params={"mode": "last"}
+            _api_url(f"/terminals/{terminal_id}/output"),
+            params={"mode": "last"},
+            timeout=CAO_API_REQUEST_TIMEOUT_SECONDS,
         )
         response.raise_for_status()
         output_data = response.json()
         output = output_data["output"]
 
         # Send provider-specific exit command to cleanup terminal
-        response = requests.post(f"{API_BASE_URL}/terminals/{terminal_id}/exit")
+        response = requests.post(
+            _api_url(f"/terminals/{terminal_id}/exit"),
+            timeout=CAO_API_REQUEST_TIMEOUT_SECONDS,
+        )
         response.raise_for_status()
 
         execution_time = time.time() - start_time
@@ -328,6 +420,9 @@ def _assign_impl(
     try:
         # Create terminal
         terminal_id, _ = _create_terminal(agent_profile, working_directory)
+
+        if CAO_ASSIGN_POST_IDLE_GRACE_SECONDS > 0:
+            time.sleep(CAO_ASSIGN_POST_IDLE_GRACE_SECONDS)
 
         # Send message immediately
         _send_direct_input(terminal_id, message)

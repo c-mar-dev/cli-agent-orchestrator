@@ -69,10 +69,11 @@ def add_flow(file_path: str) -> Flow:
         name = metadata["name"]
         schedule = metadata["schedule"]
         agent_profile = metadata["agent_profile"]
-        provider = metadata.get(
-            "provider", DEFAULT_PROVIDER
-        )  # Optional, defaults to DEFAULT_PROVIDER
+        provider = str(metadata.get("provider", DEFAULT_PROVIDER)).strip()
         script = metadata.get("script", "")  # Optional
+        if provider not in PROVIDERS:
+            allowed = ", ".join(sorted(PROVIDERS))
+            raise ValueError(f"Invalid provider '{provider}'. Allowed providers: {allowed}")
 
         # Validate cron expression and calculate next run
         try:
