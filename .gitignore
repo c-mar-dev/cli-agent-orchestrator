@@ -29,12 +29,3 @@ dist/
 
 # Memory
 context/
-
-# Workspace artifacts (ORCH-SYSTEM dev environment)
-docs/exported-convos/
-docs/my-custom-orch-system/
-docs/session-logs/
-docs/plans/
-work/
-plan.md
-C:\\Users\\

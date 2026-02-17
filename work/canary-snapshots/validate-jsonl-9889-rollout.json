@@ -1,0 +1,16 @@
+{
+  "valid": true,
+  "checks_passed": 3,
+  "checks_failed": 0,
+  "issues": [],
+  "metrics": {
+    "watcher_active": true,
+    "unmapped_active_terminals": 0,
+    "overall_gate_pass": true,
+    "fallback_trigger_rate": 0.0,
+    "jsonl_vs_tmux_disagreement_rate": 0.0,
+    "watcher_error_rate": 0.0
+  },
+  "blockers": [],
+  "cao_api": "http://127.0.0.1:9889"
+}

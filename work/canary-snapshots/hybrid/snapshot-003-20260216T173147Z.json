@@ -1,0 +1,126 @@
+{
+  "base_url": "http://127.0.0.1:9891",
+  "captured_at": "2026-02-16T17:31:47.621187+00:00",
+  "gates": {
+    "checked_at": "2026-02-16T17:31:47.631662+00:00",
+    "gates": {
+      "fallback_trigger_rate": {
+        "pass": true,
+        "threshold": 0.05,
+        "value": 0.0
+      },
+      "jsonl_vs_tmux_disagreement_rate": {
+        "pass": true,
+        "threshold": 0.01,
+        "value": 0.0
+      },
+      "parser_malformed_line_rate": {
+        "pass": true,
+        "threshold": 0.001,
+        "value": 0.0
+      },
+      "unmapped_active_terminals": {
+        "pass": false,
+        "threshold": 0,
+        "value": 9
+      },
+      "watcher_error_rate": {
+        "pass": true,
+        "threshold": 0.001,
+        "value": 0.0
+      }
+    },
+    "inbox_metrics": {
+      "deliveries_failed": 0,
+      "deliveries_succeeded": 1,
+      "delivery_attempts": 1,
+      "events_total": 3,
+      "jsonl_fallback_checks": 0,
+      "jsonl_status_checks": 1,
+      "jsonl_tmux_comparisons": 1,
+      "jsonl_tmux_disagreements": 0,
+      "jsonl_unmapped_events": 38,
+      "jsonl_watch_enabled": true,
+      "jsonl_watch_paths": [
+        "/home/charl/.claude/projects",
+        "/home/charl/.codex/sessions"
+      ],
+      "jsonl_watcher_active": true,
+      "jsonl_watcher_events_received": 40,
+      "jsonl_watcher_started_at": "2026-02-16T17:29:31.031707+00:00",
+      "last_disagreements": [],
+      "last_jsonl_event_at": "2026-02-16T17:31:46.629387+00:00",
+      "last_jsonl_event_path": "/home/charl/.claude/projects/-home-charl-projects-ORCH-SYSTEM/c4cc034c-919f-4b53-b560-2430d732722d.jsonl",
+      "rates": {
+        "fallback_trigger_rate": 0.0,
+        "jsonl_vs_tmux_disagreement_rate": 0.0,
+        "watcher_error_rate": 0.0
+      },
+      "started_at": "2026-02-16T17:29:30.962769+00:00",
+      "status_checks_total": 1,
+      "trigger_jsonl_events": 2,
+      "trigger_log_events": 1,
+      "trigger_poll_events": 0,
+      "watcher_errors": 0
+    },
+    "overall_pass": false,
+    "parser_metrics": {
+      "deterministic_mappings": 1,
+      "lines_seen": 0,
+      "malformed_lines": 0,
+      "mapping_attempts": 59,
+      "mapping_reason_counts": {
+        "codex_no_matching_session": 58,
+        "persisted_mapping": 1
+      },
+      "nondeterministic_mappings": 58,
+      "parse_read_errors": 0,
+      "parser_resets": 0,
+      "status_calls": 59
+    },
+    "unmapped_terminal_ids": [
+      "ae1c0730",
+      "ea339d35",
+      "e63f6d23",
+      "111c83fd",
+      "c070d1e8",
+      "cd89c143",
+      "fa54ab2f",
+      "fee5b949",
+      "10ade25f"
+    ]
+  },
+  "telemetry": {
+    "deliveries_failed": 0,
+    "deliveries_succeeded": 1,
+    "delivery_attempts": 1,
+    "events_total": 3,
+    "jsonl_fallback_checks": 0,
+    "jsonl_status_checks": 1,
+    "jsonl_tmux_comparisons": 1,
+    "jsonl_tmux_disagreements": 0,
+    "jsonl_unmapped_events": 38,
+    "jsonl_watch_enabled": true,
+    "jsonl_watch_paths": [
+      "/home/charl/.claude/projects",
+      "/home/charl/.codex/sessions"
+    ],
+    "jsonl_watcher_active": true,
+    "jsonl_watcher_events_received": 40,
+    "jsonl_watcher_started_at": "2026-02-16T17:29:31.031707+00:00",
+    "last_disagreements": [],
+    "last_jsonl_event_at": "2026-02-16T17:31:46.629387+00:00",
+    "last_jsonl_event_path": "/home/charl/.claude/projects/-home-charl-projects-ORCH-SYSTEM/c4cc034c-919f-4b53-b560-2430d732722d.jsonl",
+    "rates": {
+      "fallback_trigger_rate": 0.0,
+      "jsonl_vs_tmux_disagreement_rate": 0.0,
+      "watcher_error_rate": 0.0
+    },
+    "started_at": "2026-02-16T17:29:30.962769+00:00",
+    "status_checks_total": 1,
+    "trigger_jsonl_events": 2,
+    "trigger_log_events": 1,
+    "trigger_poll_events": 0,
+    "watcher_errors": 0
+  }
+}

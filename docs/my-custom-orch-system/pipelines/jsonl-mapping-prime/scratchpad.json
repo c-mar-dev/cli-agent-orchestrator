@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "role": "pipeline",
+  "feature_slug": "jsonl-mapping-prime",
+  "feature_title": "JSONL Mapping Prime — Sticky Mapping + Rollout Gates + Single-Writer",
+  "spec_origin": "plan",
+  "spec_input": "plan.md (4 scopes: A-D, 7 execution steps)",
+  "created_at": "2026-02-17T03:28:01+01:00",
+  "updated_at": "2026-02-17T03:30:00+01:00",
+  "current_stage": "spec_review",
+  "prd_path": "plan.md",
+  "spec_path": "plan.md",
+  "plan_path": "plan.md",
+  "stages": {
+    "prd": {
+      "status": "completed",
+      "started_at": "2026-02-16T00:00:00+01:00",
+      "completed_at": "2026-02-16T23:59:00+01:00",
+      "output_summary": "PRD captured in plan.md: 4 scopes (A-Sticky Mapping, B-Rollout Gates, C-Single-Writer, D-Diagnostics), success criteria, hook escalation conditions.",
+      "approval": {
+        "required": true,
+        "status": "approved",
+        "user_feedback": "Retroactive — plan.md served as PRD"
+      }
+    },
+    "spec": {
+      "status": "completed",
+      "agents": [{"role": "spec-writer", "provider": "claude_code", "terminal_id": "retroactive"}],
+      "output_summary": "Spec is plan.md sections A-D with implementation scope and validation artifacts."
+    },
+    "planning": {
+      "status": "completed",
+      "agent_count": { "claude": 1, "codex": 0 },
+      "agents": [{"role": "planner", "provider": "claude_code", "terminal_id": "retroactive"}],
+      "plan_files": ["plan.md"],
+      "output_summary": "7-step execution plan in plan.md: constants, engine, inbox, API, verifier, tests, canary validation."
+    },
+    "merge": {
+      "status": "completed",
+      "output_summary": "Single-track planning — no merge needed."
+    },
+    "review": {
+      "status": "completed",
+      "agents": [],
+      "review_order": ["codex", "claude"],
+      "output_summary": "Retroactive — plan iterated through 80+ canary runs with progressive refinement.",
+      "approval": {
+        "required": true,
+        "status": "approved",
+        "user_feedback": "Retroactive — plan validated through iterative canary runs"
+      }
+    },
+    "implementation": {
+      "status": "completed",
+      "agents": [{"role": "implementer", "provider": "claude_code", "terminal_id": "retroactive"}],
+      "session_log_path": null,
+      "output_summary": "All 6 code steps complete: constants, jsonl_status_engine.py, inbox_service.py, api/main.py, verify_jsonl_cutover.py, tests. Changes unstaged/uncommitted."
+    },
+    "spec_review": {
+      "status": "pending",
+      "agents": [],
+      "deviations_found": false,
+      "output_summary": "",
+      "approval": {
+        "required": true,
+        "status": "pending",
+        "user_feedback": null
+      }
+    },
+    "quality_commit": {
+      "status": "pending",
+      "agents": [],
+      "session_log_path": null,
+      "commit_shas": [],
+      "pushed": false,
+      "output_summary": ""
+    }
+  },
+  "decisions": [
+    {"stage": "prd", "key": "1A", "value": "Persisted deterministic mapping is sticky. Do not demote on soft tmux-text mismatch."},
+    {"stage": "prd", "key": "2A", "value": "Canary gates are rollout-scoped, not global."},
+    {"stage": "prd", "key": "3A", "value": "Single CAO writer is enforced for shared DB/watchers."},
+    {"stage": "prd", "key": "4A", "value": "Claude hooks are conditional escalation only; Codex stays non-hook."}
+  ],
+  "error_log": []
+}

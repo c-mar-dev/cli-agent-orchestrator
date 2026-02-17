@@ -1,0 +1,13 @@
+{
+  "run_id": "20260217T015217Z-d4bc88",
+  "ownership_mode": "shared_with_lease",
+  "rollout_mode": "session_name",
+  "operator": "charl",
+  "started_at_utc": "2026-02-17T01:52:17Z",
+  "status": "failed",
+  "reason_code": "owner_pid_mismatch",
+  "resolved_rollout_terminal": "898b162f",
+  "resolved_rollout_session": "cao-e2e-handoff-eec5a340",
+  "window_valid": false,
+  "ended_at_utc": "2026-02-17T01:52:37Z"
+}

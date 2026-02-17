@@ -1,0 +1,13 @@
+{
+  "run_id": "20260217T022058Z-ff4dcb",
+  "ownership_mode": "exclusive_9889",
+  "rollout_mode": "session_name",
+  "operator": "charl",
+  "started_at_utc": "2026-02-17T02:20:58Z",
+  "status": "passed",
+  "reason_code": "ok",
+  "resolved_rollout_terminal": "ca4eaea1",
+  "resolved_rollout_session": "cao-jsonl-rollout-20260217T022058Z-ff4dcb",
+  "window_valid": true,
+  "ended_at_utc": "2026-02-17T02:25:49Z"
+}

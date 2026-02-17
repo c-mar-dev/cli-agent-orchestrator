@@ -1,0 +1,976 @@
+{
+  "started_at": "2026-02-16T21:09:52.911220+00:00",
+  "inputs": {
+    "base_url": "http://127.0.0.1:9889",
+    "session_name": "cao-jsonl-rollout",
+    "provider": "claude_code",
+    "agent_profile": "pipe-orch",
+    "working_directory": "/home/charl/projects/ORCH-SYSTEM",
+    "poll_interval_seconds": 2.0,
+    "poll_timeout_seconds": 90.0
+  },
+  "why_what_summary": [
+    "This drill verifies JSONL-driven status is reliable enough to reduce tmux/ANSI parsing fragility.",
+    "It checks watcher readiness, then drives a real agent interaction to validate waiting and mapping behavior.",
+    "Pass requires JSONL source + usable confidence and a detected waiting state.",
+    "Fail returns explicit blocker reason codes so rollout decisions are deterministic."
+  ],
+  "preflight": {
+    "ok": true,
+    "health_status": "ok",
+    "jsonl_watch_enabled": true,
+    "jsonl_watcher_active": true,
+    "telemetry_excerpt": {
+      "jsonl_watcher_events_received": 0,
+      "last_jsonl_event_at": null,
+      "last_jsonl_event_path": null
+    }
+  },
+  "resolution": {
+    "session_created": false,
+    "terminal_id": "0856be88",
+    "session_payload": {
+      "session": {
+        "id": "cao-jsonl-rollout",
+        "name": "cao-jsonl-rollout",
+        "status": "detached"
+      },
+      "terminals": [
+        {
+          "id": "0856be88",
+          "tmux_session": "cao-jsonl-rollout",
+          "tmux_window": "pipe-orch-3d77",
+          "provider": "claude_code",
+          "agent_profile": "pipe-orch",
+          "created_at": "2026-02-16T21:24:40.388062",
+          "launch_cwd": "/home/charl/projects/ORCH-SYSTEM",
+          "provider_session_id": "6a8751c2-fd7d-49cc-bdef-8e1b7b16d7d3",
+          "provider_log_path": "/home/charl/.claude/projects/-home-charl-projects-ORCH-SYSTEM/6a8751c2-fd7d-49cc-bdef-8e1b7b16d7d3.jsonl",
+          "status_source": "jsonl",
+          "mapping_confidence": "high",
+          "status_reason_code": "claude_ask_user_question",
+          "last_active": "2026-02-16T22:08:14.177816"
+        }
+      ]
+    },
+    "terminal_created_in_existing_session": false
+  },
+  "poll_trace": [
+    {
+      "captured_at": "2026-02-16T21:09:52.983203+00:00",
+      "attempt": 1,
+      "status": "completed",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_ask_user_question"
+    },
+    {
+      "captured_at": "2026-02-16T21:09:55.049527+00:00",
+      "attempt": 2,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_assistant_completed"
+    },
+    {
+      "captured_at": "2026-02-16T21:09:57.070569+00:00",
+      "attempt": 3,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:09:59.128503+00:00",
+      "attempt": 4,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:01.151227+00:00",
+      "attempt": 5,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:03.160824+00:00",
+      "attempt": 6,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:05.218611+00:00",
+      "attempt": 7,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:07.232289+00:00",
+      "attempt": 8,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:09.244659+00:00",
+      "attempt": 9,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:11.284538+00:00",
+      "attempt": 10,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:13.295806+00:00",
+      "attempt": 11,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:15.306103+00:00",
+      "attempt": 12,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:17.367512+00:00",
+      "attempt": 13,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:19.377664+00:00",
+      "attempt": 14,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:21.387895+00:00",
+      "attempt": 15,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:23.464970+00:00",
+      "attempt": 16,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:25.476768+00:00",
+      "attempt": 17,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:27.509732+00:00",
+      "attempt": 18,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:29.606152+00:00",
+      "attempt": 19,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:31.621039+00:00",
+      "attempt": 20,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:33.637528+00:00",
+      "attempt": 21,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:35.757795+00:00",
+      "attempt": 22,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:37.767232+00:00",
+      "attempt": 23,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:39.980236+00:00",
+      "attempt": 24,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:42.060271+00:00",
+      "attempt": 25,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:44.075149+00:00",
+      "attempt": 26,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:46.089099+00:00",
+      "attempt": 27,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:48.141109+00:00",
+      "attempt": 28,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:50.156787+00:00",
+      "attempt": 29,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:52.170632+00:00",
+      "attempt": 30,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:54.287113+00:00",
+      "attempt": 31,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:56.295888+00:00",
+      "attempt": 32,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:10:58.304939+00:00",
+      "attempt": 33,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:00.385165+00:00",
+      "attempt": 34,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:02.563794+00:00",
+      "attempt": 35,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:04.573873+00:00",
+      "attempt": 36,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:06.629210+00:00",
+      "attempt": 37,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:08.714532+00:00",
+      "attempt": 38,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:10.728151+00:00",
+      "attempt": 39,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:12.804647+00:00",
+      "attempt": 40,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:14.860545+00:00",
+      "attempt": 41,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:16.869378+00:00",
+      "attempt": 42,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:18.919019+00:00",
+      "attempt": 43,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    },
+    {
+      "captured_at": "2026-02-16T21:11:21.025895+00:00",
+      "attempt": 44,
+      "status": "processing",
+      "status_source": "jsonl",
+      "mapping_confidence": "high",
+      "status_reason_code": "claude_user_turn_inflight"
+    }
+  ],
+  "result": {
+    "preflight_ok": true,
+    "terminal_id": "0856be88",
+    "observed_statuses_over_time": [
+      {
+        "captured_at": "2026-02-16T21:09:52.983203+00:00",
+        "attempt": 1,
+        "status": "completed",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_ask_user_question"
+      },
+      {
+        "captured_at": "2026-02-16T21:09:55.049527+00:00",
+        "attempt": 2,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_assistant_completed"
+      },
+      {
+        "captured_at": "2026-02-16T21:09:57.070569+00:00",
+        "attempt": 3,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:09:59.128503+00:00",
+        "attempt": 4,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:01.151227+00:00",
+        "attempt": 5,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:03.160824+00:00",
+        "attempt": 6,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:05.218611+00:00",
+        "attempt": 7,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:07.232289+00:00",
+        "attempt": 8,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:09.244659+00:00",
+        "attempt": 9,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:11.284538+00:00",
+        "attempt": 10,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:13.295806+00:00",
+        "attempt": 11,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:15.306103+00:00",
+        "attempt": 12,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:17.367512+00:00",
+        "attempt": 13,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:19.377664+00:00",
+        "attempt": 14,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:21.387895+00:00",
+        "attempt": 15,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:23.464970+00:00",
+        "attempt": 16,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:25.476768+00:00",
+        "attempt": 17,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:27.509732+00:00",
+        "attempt": 18,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:29.606152+00:00",
+        "attempt": 19,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:31.621039+00:00",
+        "attempt": 20,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:33.637528+00:00",
+        "attempt": 21,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:35.757795+00:00",
+        "attempt": 22,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:37.767232+00:00",
+        "attempt": 23,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:39.980236+00:00",
+        "attempt": 24,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:42.060271+00:00",
+        "attempt": 25,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:44.075149+00:00",
+        "attempt": 26,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:46.089099+00:00",
+        "attempt": 27,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:48.141109+00:00",
+        "attempt": 28,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:50.156787+00:00",
+        "attempt": 29,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:52.170632+00:00",
+        "attempt": 30,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:54.287113+00:00",
+        "attempt": 31,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:56.295888+00:00",
+        "attempt": 32,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:10:58.304939+00:00",
+        "attempt": 33,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:00.385165+00:00",
+        "attempt": 34,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:02.563794+00:00",
+        "attempt": 35,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:04.573873+00:00",
+        "attempt": 36,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:06.629210+00:00",
+        "attempt": 37,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:08.714532+00:00",
+        "attempt": 38,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:10.728151+00:00",
+        "attempt": 39,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:12.804647+00:00",
+        "attempt": 40,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:14.860545+00:00",
+        "attempt": 41,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:16.869378+00:00",
+        "attempt": 42,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:18.919019+00:00",
+        "attempt": 43,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      },
+      {
+        "captured_at": "2026-02-16T21:11:21.025895+00:00",
+        "attempt": 44,
+        "status": "processing",
+        "status_source": "jsonl",
+        "mapping_confidence": "high",
+        "status_reason_code": "claude_user_turn_inflight"
+      }
+    ],
+    "first_timestamp_status_source_jsonl": "2026-02-16T21:09:52.983203+00:00",
+    "final_mapping_confidence": "high",
+    "waiting_condition": {
+      "passed": false,
+      "condition": null,
+      "evidence": "mcq_pattern_not_detected"
+    },
+    "gate_blockers": [],
+    "pass_fail": "FAIL",
+    "reason_codes": [
+      "waiting_state_not_observed"
+    ],
+    "failed_step": "3_stimulate_waiting_state"
+  },
+  "diagnostics": {
+    "inbox_telemetry": {
+      "started_at": "2026-02-16T21:09:52.253960+00:00",
+      "trigger_log_events": 0,
+      "trigger_jsonl_events": 1,
+      "trigger_poll_events": 0,
+      "rollout_trigger_log_events": 0,
+      "rollout_trigger_jsonl_events": 1,
+      "rollout_trigger_poll_events": 0,
+      "rollout_scope_enabled": true,
+      "rollout_scope_terminal_ids": [],
+      "rollout_scope_session_names": [
+        "cao-jsonl-rollout"
+      ],
+      "jsonl_watch_enabled": true,
+      "jsonl_watcher_active": true,
+      "jsonl_watch_paths": [
+        "/home/charl/.claude/projects",
+        "/home/charl/.codex/sessions"
+      ],
+      "jsonl_watcher_started_at": "2026-02-16T21:09:52.393548+00:00",
+      "jsonl_watcher_events_received": 61,
+      "last_jsonl_event_at": "2026-02-16T21:11:22.560701+00:00",
+      "last_jsonl_event_path": "/home/charl/.codex/sessions/2026/02/16/rollout-2026-02-16T22-04-38-019c6844-ff64-7040-b7eb-460bffa99c33.jsonl",
+      "status_checks_total": 0,
+      "jsonl_status_checks": 0,
+      "jsonl_fallback_checks": 0,
+      "rollout_jsonl_status_checks": 0,
+      "rollout_jsonl_fallback_checks": 0,
+      "delivery_attempts": 0,
+      "deliveries_succeeded": 0,
+      "deliveries_failed": 0,
+      "rollout_delivery_attempts": 0,
+      "rollout_deliveries_succeeded": 0,
+      "rollout_deliveries_failed": 0,
+      "watcher_errors": 0,
+      "rollout_watcher_errors": 0,
+      "jsonl_unmapped_events": 60,
+      "jsonl_tmux_comparisons": 0,
+      "jsonl_tmux_disagreements": 0,
+      "rollout_jsonl_tmux_comparisons": 0,
+      "rollout_jsonl_tmux_disagreements": 0,
+      "events_total": 1,
+      "rollout_events_total": 1,
+      "rates": {
+        "jsonl_vs_tmux_disagreement_rate": 0.0,
+        "fallback_trigger_rate": 0.0,
+        "watcher_error_rate": 0.0,
+        "rollout_jsonl_vs_tmux_disagreement_rate": 0.0,
+        "rollout_fallback_trigger_rate": 0.0,
+        "rollout_watcher_error_rate": 0.0
+      },
+      "last_disagreements": []
+    },
+    "jsonl_gates": {
+      "overall_pass": true,
+      "checked_at": "2026-02-16T21:11:23.098353+00:00",
+      "rollout_scope": {
+        "enabled": true,
+        "terminal_ids": [],
+        "session_names": [
+          "cao-jsonl-rollout"
+        ],
+        "managed_terminal_count": 13,
+        "rollout_terminal_count": 1
+      },
+      "gates": {
+        "jsonl_vs_tmux_disagreement_rate": {
+          "threshold": 0.01,
+          "value": 0.0,
+          "pass": true,
+          "enforced": false
+        },
+        "fallback_trigger_rate": {
+          "threshold": 0.05,
+          "value": 0.0,
+          "pass": true
+        },
+        "unmapped_rollout_terminals": {
+          "threshold": 0,
+          "value": 0,
+          "pass": true
+        },
+        "unmapped_active_terminals": {
+          "threshold": 0,
+          "value": 0,
+          "pass": true
+        },
+        "watcher_error_rate": {
+          "threshold": 0.001,
+          "value": 0.0,
+          "pass": true
+        },
+        "parser_malformed_line_rate": {
+          "threshold": 0.001,
+          "value": 0.0,
+          "pass": true
+        }
+      },
+      "unmapped_terminal_ids": [],
+      "hook_escalation": {
+        "triggered": false,
+        "conditions": {
+          "mapping_demotions_gt_zero": false,
+          "fallback_rate_gte_5pct": false,
+          "startup_mapping_success_lt_99pct": false,
+          "repeated_claude_ambiguous_parent_sessions": false
+        },
+        "metrics": {
+          "mapping_demotions": 0,
+          "fallback_rate": 0.0,
+          "startup_mapping_success_rate": 1.0,
+          "claude_ambiguous_parent_sessions": 0
+        }
+      },
+      "inbox_metrics": {
+        "started_at": "2026-02-16T21:09:52.253960+00:00",
+        "trigger_log_events": 0,
+        "trigger_jsonl_events": 1,
+        "trigger_poll_events": 0,
+        "rollout_trigger_log_events": 0,
+        "rollout_trigger_jsonl_events": 1,
+        "rollout_trigger_poll_events": 0,
+        "rollout_scope_enabled": true,
+        "rollout_scope_terminal_ids": [],
+        "rollout_scope_session_names": [
+          "cao-jsonl-rollout"
+        ],
+        "jsonl_watch_enabled": true,
+        "jsonl_watcher_active": true,
+        "jsonl_watch_paths": [
+          "/home/charl/.claude/projects",
+          "/home/charl/.codex/sessions"
+        ],
+        "jsonl_watcher_started_at": "2026-02-16T21:09:52.393548+00:00",
+        "jsonl_watcher_events_received": 61,
+        "last_jsonl_event_at": "2026-02-16T21:11:22.560701+00:00",
+        "last_jsonl_event_path": "/home/charl/.codex/sessions/2026/02/16/rollout-2026-02-16T22-04-38-019c6844-ff64-7040-b7eb-460bffa99c33.jsonl",
+        "status_checks_total": 0,
+        "jsonl_status_checks": 0,
+        "jsonl_fallback_checks": 0,
+        "rollout_jsonl_status_checks": 0,
+        "rollout_jsonl_fallback_checks": 0,
+        "delivery_attempts": 0,
+        "deliveries_succeeded": 0,
+        "deliveries_failed": 0,
+        "rollout_delivery_attempts": 0,
+        "rollout_deliveries_succeeded": 0,
+        "rollout_deliveries_failed": 0,
+        "watcher_errors": 0,
+        "rollout_watcher_errors": 0,
+        "jsonl_unmapped_events": 60,
+        "jsonl_tmux_comparisons": 0,
+        "jsonl_tmux_disagreements": 0,
+        "rollout_jsonl_tmux_comparisons": 0,
+        "rollout_jsonl_tmux_disagreements": 0,
+        "events_total": 1,
+        "rollout_events_total": 1,
+        "rates": {
+          "jsonl_vs_tmux_disagreement_rate": 0.0,
+          "fallback_trigger_rate": 0.0,
+          "watcher_error_rate": 0.0,
+          "rollout_jsonl_vs_tmux_disagreement_rate": 0.0,
+          "rollout_fallback_trigger_rate": 0.0,
+          "rollout_watcher_error_rate": 0.0
+        },
+        "last_disagreements": []
+      },
+      "parser_metrics": {
+        "status_calls": 110,
+        "mapping_attempts": 110,
+        "deterministic_mappings": 44,
+        "nondeterministic_mappings": 66,
+        "mapping_reason_counts": {
+          "persisted_mapping": 44,
+          "codex_no_matching_session": 66
+        },
+        "lines_seen": 2,
+        "malformed_lines": 0,
+        "parser_resets": 0,
+        "parse_read_errors": 0,
+        "mapping_promotions": 0,
+        "mapping_demotions": 0,
+        "mapping_invalidations": 0,
+        "mapping_invalidation_reason_counts": {},
+        "startup_mapping_attempts": 0,
+        "startup_mapping_deterministic": 0,
+        "startup_mapping_nondeterministic": 0
+      }
+    },
+    "gate_blockers": []
+  },
+  "finished_at": "2026-02-16T21:11:23.100398+00:00"
+}

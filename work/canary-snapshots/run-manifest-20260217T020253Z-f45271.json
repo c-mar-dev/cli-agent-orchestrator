@@ -1,0 +1,13 @@
+{
+  "run_id": "20260217T020253Z-f45271",
+  "ownership_mode": "exclusive_9889",
+  "rollout_mode": "session_name",
+  "operator": "charl",
+  "started_at_utc": "2026-02-17T02:02:53Z",
+  "status": "failed",
+  "reason_code": "guardrail_failed",
+  "resolved_rollout_terminal": "6ba167dd",
+  "resolved_rollout_session": "cao-e2e-assign-64c4a778",
+  "window_valid": false,
+  "ended_at_utc": "2026-02-17T02:03:17Z"
+}

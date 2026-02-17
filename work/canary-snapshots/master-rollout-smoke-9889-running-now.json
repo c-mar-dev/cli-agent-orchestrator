@@ -1,0 +1,926 @@
+{
+  "started_at": "2026-02-16T21:18:50.894294+00:00",
+  "inputs": {
+    "base_url": "http://127.0.0.1:9889",
+    "session_name": "cao-jsonl-rollout",
+    "provider": "claude_code",
+    "agent_profile": "pipe-orch",
+    "working_directory": "/home/charl/projects/ORCH-SYSTEM",
+    "poll_interval_seconds": 2.0,
+    "poll_timeout_seconds": 90.0
+  },
+  "why_what_summary": [
+    "This drill verifies JSONL-driven status is reliable enough to reduce tmux/ANSI parsing fragility.",
+    "It checks watcher readiness, then drives a real agent interaction to validate waiting and mapping behavior.",
+    "Pass requires JSONL source + usable confidence and a detected waiting state.",
+    "Fail returns explicit blocker reason codes so rollout decisions are deterministic."
+  ],
+  "preflight": {
+    "ok": true,
+    "health_status": "ok",
+    "jsonl_watch_enabled": true,
+    "jsonl_watcher_active": true,
+    "telemetry_excerpt": {
+      "jsonl_watcher_events_received": 97,
+      "last_jsonl_event_at": "2026-02-16T21:18:50.857409+00:00",
+      "last_jsonl_event_path": "/home/charl/.codex/sessions/2026/02/16/rollout-2026-02-16T16-57-18-019c672b-9ffa-71d0-8e7e-408b33ef4c21.jsonl"
+    }
+  },
+  "resolution": {
+    "session_created": true,
+    "terminal_id": "9a49ca92",
+    "session_payload": null,
+    "terminal_created_in_existing_session": false
+  },
+  "poll_trace": [
+    {
+      "captured_at": "2026-02-16T21:19:10.384865+00:00",
+      "attempt": 1,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:12.556606+00:00",
+      "attempt": 2,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:14.628438+00:00",
+      "attempt": 3,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:17.050090+00:00",
+      "attempt": 4,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:19.151356+00:00",
+      "attempt": 5,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:21.198968+00:00",
+      "attempt": 6,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:23.501153+00:00",
+      "attempt": 7,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:25.543483+00:00",
+      "attempt": 8,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:27.603139+00:00",
+      "attempt": 9,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:29.911060+00:00",
+      "attempt": 10,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:31.973918+00:00",
+      "attempt": 11,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:34.009881+00:00",
+      "attempt": 12,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:36.343329+00:00",
+      "attempt": 13,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:38.410331+00:00",
+      "attempt": 14,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:40.456159+00:00",
+      "attempt": 15,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:42.824933+00:00",
+      "attempt": 16,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:44.915802+00:00",
+      "attempt": 17,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:46.961823+00:00",
+      "attempt": 18,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:49.227556+00:00",
+      "attempt": 19,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:51.256256+00:00",
+      "attempt": 20,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:53.290199+00:00",
+      "attempt": 21,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:55.565740+00:00",
+      "attempt": 22,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:57.613963+00:00",
+      "attempt": 23,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:19:59.686884+00:00",
+      "attempt": 24,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:02.259513+00:00",
+      "attempt": 25,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:04.304355+00:00",
+      "attempt": 26,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:06.372893+00:00",
+      "attempt": 27,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:08.939582+00:00",
+      "attempt": 28,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:11.004232+00:00",
+      "attempt": 29,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:13.054121+00:00",
+      "attempt": 30,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:15.414001+00:00",
+      "attempt": 31,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:17.466967+00:00",
+      "attempt": 32,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:19.504266+00:00",
+      "attempt": 33,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:21.717473+00:00",
+      "attempt": 34,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:23.762111+00:00",
+      "attempt": 35,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:25.806295+00:00",
+      "attempt": 36,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:28.338172+00:00",
+      "attempt": 37,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:30.394856+00:00",
+      "attempt": 38,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:32.467627+00:00",
+      "attempt": 39,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:34.923330+00:00",
+      "attempt": 40,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:36.977292+00:00",
+      "attempt": 41,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    },
+    {
+      "captured_at": "2026-02-16T21:20:39.040946+00:00",
+      "attempt": 42,
+      "status": "idle",
+      "status_source": "hybrid",
+      "mapping_confidence": "none",
+      "status_reason_code": "claude_ambiguous_parent_sessions"
+    }
+  ],
+  "result": {
+    "preflight_ok": true,
+    "terminal_id": "9a49ca92",
+    "observed_statuses_over_time": [
+      {
+        "captured_at": "2026-02-16T21:19:10.384865+00:00",
+        "attempt": 1,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:12.556606+00:00",
+        "attempt": 2,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:14.628438+00:00",
+        "attempt": 3,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:17.050090+00:00",
+        "attempt": 4,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:19.151356+00:00",
+        "attempt": 5,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:21.198968+00:00",
+        "attempt": 6,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:23.501153+00:00",
+        "attempt": 7,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:25.543483+00:00",
+        "attempt": 8,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:27.603139+00:00",
+        "attempt": 9,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:29.911060+00:00",
+        "attempt": 10,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:31.973918+00:00",
+        "attempt": 11,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:34.009881+00:00",
+        "attempt": 12,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:36.343329+00:00",
+        "attempt": 13,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:38.410331+00:00",
+        "attempt": 14,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:40.456159+00:00",
+        "attempt": 15,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:42.824933+00:00",
+        "attempt": 16,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:44.915802+00:00",
+        "attempt": 17,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:46.961823+00:00",
+        "attempt": 18,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:49.227556+00:00",
+        "attempt": 19,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:51.256256+00:00",
+        "attempt": 20,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:53.290199+00:00",
+        "attempt": 21,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:55.565740+00:00",
+        "attempt": 22,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:57.613963+00:00",
+        "attempt": 23,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:19:59.686884+00:00",
+        "attempt": 24,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:02.259513+00:00",
+        "attempt": 25,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:04.304355+00:00",
+        "attempt": 26,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:06.372893+00:00",
+        "attempt": 27,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:08.939582+00:00",
+        "attempt": 28,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:11.004232+00:00",
+        "attempt": 29,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:13.054121+00:00",
+        "attempt": 30,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:15.414001+00:00",
+        "attempt": 31,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:17.466967+00:00",
+        "attempt": 32,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:19.504266+00:00",
+        "attempt": 33,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:21.717473+00:00",
+        "attempt": 34,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:23.762111+00:00",
+        "attempt": 35,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:25.806295+00:00",
+        "attempt": 36,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:28.338172+00:00",
+        "attempt": 37,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:30.394856+00:00",
+        "attempt": 38,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:32.467627+00:00",
+        "attempt": 39,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:34.923330+00:00",
+        "attempt": 40,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:36.977292+00:00",
+        "attempt": 41,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      },
+      {
+        "captured_at": "2026-02-16T21:20:39.040946+00:00",
+        "attempt": 42,
+        "status": "idle",
+        "status_source": "hybrid",
+        "mapping_confidence": "none",
+        "status_reason_code": "claude_ambiguous_parent_sessions"
+      }
+    ],
+    "first_timestamp_status_source_jsonl": null,
+    "final_mapping_confidence": "none",
+    "waiting_condition": {
+      "passed": false,
+      "condition": null,
+      "evidence": "mcq_pattern_not_detected"
+    },
+    "gate_blockers": [],
+    "pass_fail": "FAIL",
+    "reason_codes": [
+      "waiting_state_not_observed"
+    ],
+    "failed_step": "3_stimulate_waiting_state"
+  },
+  "diagnostics": {
+    "inbox_telemetry": {
+      "started_at": "2026-02-16T21:15:10.036712+00:00",
+      "trigger_log_events": 0,
+      "trigger_jsonl_events": 1,
+      "trigger_poll_events": 0,
+      "rollout_trigger_log_events": 0,
+      "rollout_trigger_jsonl_events": 1,
+      "rollout_trigger_poll_events": 0,
+      "rollout_scope_enabled": true,
+      "rollout_scope_terminal_ids": [],
+      "rollout_scope_session_names": [
+        "cao-jsonl-rollout"
+      ],
+      "jsonl_watch_enabled": true,
+      "jsonl_watcher_active": true,
+      "jsonl_watch_paths": [
+        "/home/charl/.claude/projects",
+        "/home/charl/.codex/sessions"
+      ],
+      "jsonl_watcher_started_at": "2026-02-16T21:15:10.129352+00:00",
+      "jsonl_watcher_events_received": 171,
+      "last_jsonl_event_at": "2026-02-16T21:20:41.234597+00:00",
+      "last_jsonl_event_path": "/home/charl/.codex/sessions/2026/02/16/rollout-2026-02-16T16-57-18-019c672b-9ffa-71d0-8e7e-408b33ef4c21.jsonl",
+      "status_checks_total": 0,
+      "jsonl_status_checks": 0,
+      "jsonl_fallback_checks": 0,
+      "rollout_jsonl_status_checks": 0,
+      "rollout_jsonl_fallback_checks": 0,
+      "delivery_attempts": 0,
+      "deliveries_succeeded": 0,
+      "deliveries_failed": 0,
+      "rollout_delivery_attempts": 0,
+      "rollout_deliveries_succeeded": 0,
+      "rollout_deliveries_failed": 0,
+      "watcher_errors": 0,
+      "rollout_watcher_errors": 0,
+      "jsonl_unmapped_events": 170,
+      "jsonl_tmux_comparisons": 0,
+      "jsonl_tmux_disagreements": 0,
+      "rollout_jsonl_tmux_comparisons": 0,
+      "rollout_jsonl_tmux_disagreements": 0,
+      "events_total": 1,
+      "rollout_events_total": 1,
+      "rates": {
+        "jsonl_vs_tmux_disagreement_rate": 0.0,
+        "fallback_trigger_rate": 0.0,
+        "watcher_error_rate": 0.0,
+        "rollout_jsonl_vs_tmux_disagreement_rate": 0.0,
+        "rollout_fallback_trigger_rate": 0.0,
+        "rollout_watcher_error_rate": 0.0
+      },
+      "last_disagreements": []
+    },
+    "jsonl_gates": {
+      "overall_pass": false,
+      "checked_at": "2026-02-16T21:20:41.583994+00:00",
+      "rollout_scope": {
+        "enabled": true,
+        "terminal_ids": [],
+        "session_names": [
+          "cao-jsonl-rollout"
+        ],
+        "managed_terminal_count": 7,
+        "rollout_terminal_count": 1
+      },
+      "gates": {
+        "jsonl_vs_tmux_disagreement_rate": {
+          "threshold": 0.01,
+          "value": 0.0,
+          "pass": true,
+          "enforced": false
+        },
+        "fallback_trigger_rate": {
+          "threshold": 0.05,
+          "value": 0.0,
+          "pass": true
+        },
+        "unmapped_rollout_terminals": {
+          "threshold": 0,
+          "value": 1,
+          "pass": false
+        },
+        "unmapped_active_terminals": {
+          "threshold": 0,
+          "value": 1,
+          "pass": false
+        },
+        "watcher_error_rate": {
+          "threshold": 0.001,
+          "value": 0.0,
+          "pass": true
+        },
+        "parser_malformed_line_rate": {
+          "threshold": 0.001,
+          "value": 0.0,
+          "pass": true
+        }
+      },
+      "unmapped_terminal_ids": [
+        "9a49ca92"
+      ],
+      "hook_escalation": {
+        "triggered": true,
+        "conditions": {
+          "mapping_demotions_gt_zero": false,
+          "fallback_rate_gte_5pct": false,
+          "startup_mapping_success_lt_99pct": true,
+          "repeated_claude_ambiguous_parent_sessions": true
+        },
+        "metrics": {
+          "mapping_demotions": 0,
+          "fallback_rate": 0.0,
+          "startup_mapping_success_rate": 0.0,
+          "claude_ambiguous_parent_sessions": 192
+        }
+      },
+      "inbox_metrics": {
+        "started_at": "2026-02-16T21:15:10.036712+00:00",
+        "trigger_log_events": 0,
+        "trigger_jsonl_events": 1,
+        "trigger_poll_events": 0,
+        "rollout_trigger_log_events": 0,
+        "rollout_trigger_jsonl_events": 1,
+        "rollout_trigger_poll_events": 0,
+        "rollout_scope_enabled": true,
+        "rollout_scope_terminal_ids": [],
+        "rollout_scope_session_names": [
+          "cao-jsonl-rollout"
+        ],
+        "jsonl_watch_enabled": true,
+        "jsonl_watcher_active": true,
+        "jsonl_watch_paths": [
+          "/home/charl/.claude/projects",
+          "/home/charl/.codex/sessions"
+        ],
+        "jsonl_watcher_started_at": "2026-02-16T21:15:10.129352+00:00",
+        "jsonl_watcher_events_received": 171,
+        "last_jsonl_event_at": "2026-02-16T21:20:41.234597+00:00",
+        "last_jsonl_event_path": "/home/charl/.codex/sessions/2026/02/16/rollout-2026-02-16T16-57-18-019c672b-9ffa-71d0-8e7e-408b33ef4c21.jsonl",
+        "status_checks_total": 0,
+        "jsonl_status_checks": 0,
+        "jsonl_fallback_checks": 0,
+        "rollout_jsonl_status_checks": 0,
+        "rollout_jsonl_fallback_checks": 0,
+        "delivery_attempts": 0,
+        "deliveries_succeeded": 0,
+        "deliveries_failed": 0,
+        "rollout_delivery_attempts": 0,
+        "rollout_deliveries_succeeded": 0,
+        "rollout_deliveries_failed": 0,
+        "watcher_errors": 0,
+        "rollout_watcher_errors": 0,
+        "jsonl_unmapped_events": 170,
+        "jsonl_tmux_comparisons": 0,
+        "jsonl_tmux_disagreements": 0,
+        "rollout_jsonl_tmux_comparisons": 0,
+        "rollout_jsonl_tmux_disagreements": 0,
+        "events_total": 1,
+        "rollout_events_total": 1,
+        "rates": {
+          "jsonl_vs_tmux_disagreement_rate": 0.0,
+          "fallback_trigger_rate": 0.0,
+          "watcher_error_rate": 0.0,
+          "rollout_jsonl_vs_tmux_disagreement_rate": 0.0,
+          "rollout_fallback_trigger_rate": 0.0,
+          "rollout_watcher_error_rate": 0.0
+        },
+        "last_disagreements": []
+      },
+      "parser_metrics": {
+        "status_calls": 374,
+        "mapping_attempts": 409,
+        "deterministic_mappings": 47,
+        "nondeterministic_mappings": 362,
+        "mapping_reason_counts": {
+          "persisted_mapping": 45,
+          "claude_ambiguous_parent_sessions": 192,
+          "codex_no_matching_session": 133,
+          "claude_tmux_user_match": 2,
+          "claude_project_bucket_missing": 37
+        },
+        "lines_seen": 0,
+        "malformed_lines": 0,
+        "parser_resets": 0,
+        "parse_read_errors": 0,
+        "mapping_promotions": 1,
+        "mapping_demotions": 0,
+        "mapping_invalidations": 0,
+        "mapping_invalidation_reason_counts": {},
+        "startup_mapping_attempts": 3,
+        "startup_mapping_deterministic": 0,
+        "startup_mapping_nondeterministic": 3
+      }
+    },
+    "gate_blockers": []
+  },
+  "finished_at": "2026-02-16T21:20:41.586943+00:00"
+}

@@ -1,0 +1,212 @@
+{
+  "captured_at_utc": "2026-02-17T02:25:48Z",
+  "gates": {
+    "overall_pass": true,
+    "checked_at": "2026-02-17T02:25:48.891604+00:00",
+    "rollout_scope": {
+      "enabled": true,
+      "terminal_ids": [
+        "ca4eaea1"
+      ],
+      "session_names": [],
+      "managed_terminal_count": 30,
+      "rollout_terminal_count": 1
+    },
+    "gates": {
+      "jsonl_vs_tmux_disagreement_rate": {
+        "threshold": 0.01,
+        "value": 0.0,
+        "pass": true,
+        "enforced": false,
+        "comparison_enabled": false
+      },
+      "fallback_trigger_rate": {
+        "threshold": 0.05,
+        "value": 0.0,
+        "pass": true
+      },
+      "unmapped_rollout_terminals": {
+        "threshold": 0,
+        "value": 0,
+        "pass": true
+      },
+      "unmapped_active_terminals": {
+        "threshold": 0,
+        "value": 0,
+        "pass": true
+      },
+      "watcher_error_rate": {
+        "threshold": 0.001,
+        "value": 0.0,
+        "pass": true
+      },
+      "parser_malformed_line_rate": {
+        "threshold": 0.001,
+        "value": 0.0,
+        "pass": true
+      }
+    },
+    "unmapped_terminal_ids": [],
+    "hook_escalation": {
+      "triggered": true,
+      "conditions": {
+        "mapping_demotions_gt_zero": false,
+        "fallback_rate_gte_5pct": false,
+        "startup_mapping_success_lt_99pct": true,
+        "repeated_claude_ambiguous_parent_sessions": true
+      },
+      "metrics": {
+        "mapping_demotions": 0,
+        "fallback_rate": 0.0,
+        "startup_mapping_success_rate": 0.0,
+        "claude_ambiguous_parent_sessions": 58
+      }
+    },
+    "inbox_metrics": {
+      "started_at": "2026-02-17T02:22:12.911823+00:00",
+      "trigger_log_events": 107,
+      "trigger_jsonl_events": 31,
+      "trigger_poll_events": 32,
+      "rollout_trigger_log_events": 107,
+      "rollout_trigger_jsonl_events": 30,
+      "rollout_trigger_poll_events": 32,
+      "rollout_scope_enabled": true,
+      "rollout_scope_terminal_ids": [
+        "ca4eaea1"
+      ],
+      "rollout_scope_session_names": [],
+      "jsonl_watch_enabled": true,
+      "jsonl_watcher_active": true,
+      "jsonl_watch_paths": [
+        "/home/charl/.claude/projects",
+        "/home/charl/.codex/sessions"
+      ],
+      "jsonl_watcher_started_at": "2026-02-17T02:22:12.911848+00:00",
+      "jsonl_tmux_comparison_enabled": false,
+      "jsonl_watcher_events_received": 114,
+      "last_jsonl_event_at": "2026-02-17T02:25:47.003631+00:00",
+      "last_jsonl_event_path": "/home/charl/.codex/sessions/2026/02/16/rollout-2026-02-16T16-57-18-019c672b-9ffa-71d0-8e7e-408b33ef4c21.jsonl",
+      "status_checks_total": 170,
+      "jsonl_status_checks": 170,
+      "jsonl_fallback_checks": 0,
+      "rollout_jsonl_status_checks": 169,
+      "rollout_jsonl_fallback_checks": 0,
+      "delivery_attempts": 17,
+      "deliveries_succeeded": 17,
+      "deliveries_failed": 0,
+      "delivery_retries": 0,
+      "delivery_dead_letters": 0,
+      "rollout_delivery_attempts": 17,
+      "rollout_deliveries_succeeded": 17,
+      "rollout_deliveries_failed": 0,
+      "watcher_errors": 0,
+      "rollout_watcher_errors": 0,
+      "jsonl_unmapped_events": 83,
+      "jsonl_tmux_comparisons": 0,
+      "jsonl_tmux_disagreements": 0,
+      "rollout_jsonl_tmux_comparisons": 0,
+      "rollout_jsonl_tmux_disagreements": 0,
+      "approval_requests_created": 1,
+      "approval_requests_resolved": 1,
+      "events_total": 170,
+      "rollout_events_total": 169,
+      "rates": {
+        "jsonl_vs_tmux_disagreement_rate": 0.0,
+        "fallback_trigger_rate": 0.0,
+        "watcher_error_rate": 0.0,
+        "rollout_jsonl_vs_tmux_disagreement_rate": 0.0,
+        "rollout_fallback_trigger_rate": 0.0,
+        "rollout_watcher_error_rate": 0.0,
+        "dead_letter_rate": 0.0
+      },
+      "last_disagreements": []
+    },
+    "parser_metrics": {
+      "status_calls": 275,
+      "mapping_attempts": 313,
+      "deterministic_mappings": 255,
+      "nondeterministic_mappings": 58,
+      "mapping_reason_counts": {
+        "persisted_mapping": 252,
+        "claude_ambiguous_parent_sessions": 58,
+        "claude_session_hint_match": 3
+      },
+      "lines_seen": 175,
+      "malformed_lines": 0,
+      "parser_resets": 0,
+      "parse_read_errors": 0,
+      "mapping_promotions": 1,
+      "mapping_demotions": 0,
+      "mapping_invalidations": 0,
+      "mapping_invalidation_reason_counts": {},
+      "startup_mapping_attempts": 3,
+      "startup_mapping_deterministic": 0,
+      "startup_mapping_nondeterministic": 3
+    }
+  },
+  "telemetry": {
+    "started_at": "2026-02-17T02:22:12.911823+00:00",
+    "trigger_log_events": 107,
+    "trigger_jsonl_events": 31,
+    "trigger_poll_events": 33,
+    "rollout_trigger_log_events": 107,
+    "rollout_trigger_jsonl_events": 30,
+    "rollout_trigger_poll_events": 33,
+    "rollout_scope_enabled": true,
+    "rollout_scope_terminal_ids": [
+      "ca4eaea1"
+    ],
+    "rollout_scope_session_names": [],
+    "jsonl_watch_enabled": true,
+    "jsonl_watcher_active": true,
+    "jsonl_watch_paths": [
+      "/home/charl/.claude/projects",
+      "/home/charl/.codex/sessions"
+    ],
+    "jsonl_watcher_started_at": "2026-02-17T02:22:12.911848+00:00",
+    "jsonl_tmux_comparison_enabled": false,
+    "jsonl_watcher_events_received": 114,
+    "last_jsonl_event_at": "2026-02-17T02:25:47.003631+00:00",
+    "last_jsonl_event_path": "/home/charl/.codex/sessions/2026/02/16/rollout-2026-02-16T16-57-18-019c672b-9ffa-71d0-8e7e-408b33ef4c21.jsonl",
+    "status_checks_total": 171,
+    "jsonl_status_checks": 171,
+    "jsonl_fallback_checks": 0,
+    "rollout_jsonl_status_checks": 170,
+    "rollout_jsonl_fallback_checks": 0,
+    "delivery_attempts": 17,
+    "deliveries_succeeded": 17,
+    "deliveries_failed": 0,
+    "delivery_retries": 0,
+    "delivery_dead_letters": 0,
+    "rollout_delivery_attempts": 17,
+    "rollout_deliveries_succeeded": 17,
+    "rollout_deliveries_failed": 0,
+    "watcher_errors": 0,
+    "rollout_watcher_errors": 0,
+    "jsonl_unmapped_events": 83,
+    "jsonl_tmux_comparisons": 0,
+    "jsonl_tmux_disagreements": 0,
+    "rollout_jsonl_tmux_comparisons": 0,
+    "rollout_jsonl_tmux_disagreements": 0,
+    "approval_requests_created": 1,
+    "approval_requests_resolved": 1,
+    "events_total": 171,
+    "rollout_events_total": 170,
+    "rates": {
+      "jsonl_vs_tmux_disagreement_rate": 0.0,
+      "fallback_trigger_rate": 0.0,
+      "watcher_error_rate": 0.0,
+      "rollout_jsonl_vs_tmux_disagreement_rate": 0.0,
+      "rollout_fallback_trigger_rate": 0.0,
+      "rollout_watcher_error_rate": 0.0,
+      "dead_letter_rate": 0.0
+    },
+    "last_disagreements": [],
+    "db": {
+      "idempotency_conflict_hits": 0,
+      "duplicate_rows_pruned": 0,
+      "dead_letter_requeue_attempted": 0,
+      "dead_letter_requeue_applied": 0
+    }
+  }
+}

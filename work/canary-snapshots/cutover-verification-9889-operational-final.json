@@ -1,0 +1,225 @@
+{
+  "base_url": "http://127.0.0.1:9889",
+  "blockers": [
+    {
+      "action": "Drive real agent activity; verify JSONL watcher event volume increases or parser line progress is observed.",
+      "blocker": "insufficient_jsonl_events",
+      "why": "Watcher event volume is too low to prove steady-state behavior."
+    },
+    {
+      "action": "Backfill metadata and enforce deterministic provider session IDs.",
+      "blocker": "unmapped_rollout_terminals",
+      "why": "1 rollout terminal(s) still have non-deterministic or missing mapping."
+    }
+  ],
+  "counter_scope_keys": {
+    "deliveries_failed": "deliveries_failed",
+    "deliveries_succeeded": "deliveries_succeeded",
+    "delivery_attempts": "delivery_attempts",
+    "jsonl_fallback_checks": "jsonl_fallback_checks",
+    "jsonl_status_checks": "jsonl_status_checks",
+    "jsonl_tmux_comparisons": "jsonl_tmux_comparisons",
+    "jsonl_tmux_disagreements": "jsonl_tmux_disagreements",
+    "jsonl_watcher_events_received": "jsonl_watcher_events_received",
+    "trigger_jsonl_events": "trigger_jsonl_events",
+    "trigger_log_events": "trigger_log_events",
+    "trigger_poll_events": "trigger_poll_events",
+    "watcher_errors": "watcher_errors"
+  },
+  "delivery_probe": {
+    "agent_profile": "pipe-orch",
+    "auto_session_name": "cao-jsonl-rollout",
+    "create_session": false,
+    "disable_prompts": true,
+    "enabled": true,
+    "message_interval_seconds": 2.5,
+    "mode": "on",
+    "prompt_interval_seconds": 15.0,
+    "provider": "claude_code",
+    "session_name": null,
+    "terminal_id": "fee5b949",
+    "working_directory": "/home/charl/projects/ORCH-SYSTEM"
+  },
+  "delta": {
+    "deliveries_failed": 0,
+    "deliveries_succeeded": 1,
+    "delivery_attempts": 1,
+    "jsonl_fallback_checks": 0,
+    "jsonl_status_checks": 1,
+    "jsonl_tmux_comparisons": 0,
+    "jsonl_tmux_disagreements": 0,
+    "jsonl_watcher_events_received": 0,
+    "status_checks_total": 1,
+    "trigger_jsonl_events": 0,
+    "trigger_log_events": 1,
+    "trigger_poll_events": 0,
+    "watcher_errors": 0
+  },
+  "duration_seconds": 30,
+  "ended_at": "2026-02-16T23:56:07.505661+00:00",
+  "enforce_tmux_disagreement": false,
+  "final_gates": {
+    "checked_at": "2026-02-16T23:56:07.501650+00:00",
+    "gates": {
+      "fallback_trigger_rate": {
+        "pass": true,
+        "threshold": 0.05,
+        "value": 0.0
+      },
+      "jsonl_vs_tmux_disagreement_rate": {
+        "comparison_enabled": false,
+        "enforced": false,
+        "pass": true,
+        "threshold": 0.01,
+        "value": 0.0
+      },
+      "parser_malformed_line_rate": {
+        "pass": true,
+        "threshold": 0.001,
+        "value": 0.0
+      },
+      "unmapped_active_terminals": {
+        "pass": false,
+        "threshold": 0,
+        "value": 1
+      },
+      "unmapped_rollout_terminals": {
+        "pass": false,
+        "threshold": 0,
+        "value": 1
+      },
+      "watcher_error_rate": {
+        "pass": true,
+        "threshold": 0.001,
+        "value": 0.0
+      }
+    },
+    "hook_escalation": {
+      "conditions": {
+        "fallback_rate_gte_5pct": false,
+        "mapping_demotions_gt_zero": false,
+        "repeated_claude_ambiguous_parent_sessions": false,
+        "startup_mapping_success_lt_99pct": false
+      },
+      "metrics": {
+        "claude_ambiguous_parent_sessions": 0,
+        "fallback_rate": 0.0,
+        "mapping_demotions": 0,
+        "startup_mapping_success_rate": 1.0
+      },
+      "triggered": false
+    },
+    "inbox_metrics": {
+      "deliveries_failed": 0,
+      "deliveries_succeeded": 2,
+      "delivery_attempts": 2,
+      "events_total": 5,
+      "jsonl_fallback_checks": 0,
+      "jsonl_status_checks": 2,
+      "jsonl_tmux_comparison_enabled": false,
+      "jsonl_tmux_comparisons": 0,
+      "jsonl_tmux_disagreements": 0,
+      "jsonl_unmapped_events": 11,
+      "jsonl_watch_enabled": true,
+      "jsonl_watch_paths": [
+        "/home/charl/.claude/projects",
+        "/home/charl/.codex/sessions"
+      ],
+      "jsonl_watcher_active": true,
+      "jsonl_watcher_events_received": 14,
+      "jsonl_watcher_started_at": "2026-02-16T23:55:34.452373+00:00",
+      "last_disagreements": [],
+      "last_jsonl_event_at": "2026-02-16T23:56:04.291897+00:00",
+      "last_jsonl_event_path": "/home/charl/.codex/sessions/2026/02/17/rollout-2026-02-17T00-36-56-019c68d0-6df3-7541-b485-2bf8bbcef097.jsonl",
+      "rates": {
+        "fallback_trigger_rate": 0.0,
+        "jsonl_vs_tmux_disagreement_rate": 0.0,
+        "rollout_fallback_trigger_rate": 0.0,
+        "rollout_jsonl_vs_tmux_disagreement_rate": 0.0,
+        "rollout_watcher_error_rate": 0.0,
+        "watcher_error_rate": 0.0
+      },
+      "rollout_deliveries_failed": 0,
+      "rollout_deliveries_succeeded": 2,
+      "rollout_delivery_attempts": 2,
+      "rollout_events_total": 5,
+      "rollout_jsonl_fallback_checks": 0,
+      "rollout_jsonl_status_checks": 2,
+      "rollout_jsonl_tmux_comparisons": 0,
+      "rollout_jsonl_tmux_disagreements": 0,
+      "rollout_scope_enabled": false,
+      "rollout_scope_session_names": [],
+      "rollout_scope_terminal_ids": [],
+      "rollout_trigger_jsonl_events": 3,
+      "rollout_trigger_log_events": 2,
+      "rollout_trigger_poll_events": 0,
+      "rollout_watcher_errors": 0,
+      "started_at": "2026-02-16T23:55:34.452356+00:00",
+      "status_checks_total": 2,
+      "trigger_jsonl_events": 3,
+      "trigger_log_events": 2,
+      "trigger_poll_events": 0,
+      "watcher_errors": 0
+    },
+    "overall_pass": false,
+    "parser_metrics": {
+      "deterministic_mappings": 32,
+      "lines_seen": 7,
+      "malformed_lines": 0,
+      "mapping_attempts": 32,
+      "mapping_demotions": 0,
+      "mapping_invalidation_reason_counts": {},
+      "mapping_invalidations": 0,
+      "mapping_promotions": 1,
+      "mapping_reason_counts": {
+        "claude_single_parent_session": 5,
+        "persisted_mapping": 27
+      },
+      "nondeterministic_mappings": 0,
+      "parse_read_errors": 0,
+      "parser_resets": 0,
+      "startup_mapping_attempts": 0,
+      "startup_mapping_deterministic": 0,
+      "startup_mapping_nondeterministic": 0,
+      "status_calls": 32
+    },
+    "rollout_scope": {
+      "enabled": false,
+      "managed_terminal_count": 4,
+      "rollout_terminal_count": 4,
+      "session_names": [],
+      "terminal_ids": []
+    },
+    "unmapped_terminal_ids": [
+      "ece3e313"
+    ]
+  },
+  "interval_seconds": 3.0,
+  "parser_lines_delta": 0,
+  "recommendation": "stay_hybrid",
+  "remediation_before_window": null,
+  "reset_before_window": true,
+  "reset_result": {
+    "inbox_telemetry_reset": true,
+    "parser_telemetry_reset": true,
+    "reset_at": "2026-02-16T23:55:34.452405+00:00"
+  },
+  "sample_count": 1,
+  "snapshot_error_count": 0,
+  "snapshot_errors_tail": [],
+  "started_at": "2026-02-16T23:55:34.497487+00:00",
+  "thresholds": {
+    "max_disagreement_rate": 0.01,
+    "max_fallback_rate": 0.05,
+    "max_watcher_error_rate": 0.001,
+    "min_comparisons": 50,
+    "min_deliveries": 1,
+    "min_jsonl_events": 1
+  },
+  "tmux_comparison_enabled": false,
+  "window_rates": {
+    "fallback_trigger_rate": 0.0,
+    "jsonl_vs_tmux_disagreement_rate": 0.0,
+    "watcher_error_rate": 0.0
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "run_id": "20260217T020253Z-f45271",
+  "status": "failed",
+  "reason_code": "guardrail_failed",
+  "owner_pid": 3791385,
+  "resolved_rollout_target": "6ba167dd",
+  "checks": [
+    {
+      "name": "go_no_go_manifest_created",
+      "pass": true,
+      "detail": "manifest_path=/home/charl/projects/ORCH-SYSTEM/CARO-FORK/work/canary-snapshots/run-manifest-20260217T020253Z-f45271.json"
+    },
+    {
+      "name": "lease_lock",
+      "pass": true,
+      "detail": "lease_file=/tmp/caro-9889.lock reclaimed=true"
+    },
+    {
+      "name": "phase1_runtime_start",
+      "pass": true,
+      "detail": "owner_pid=3786748 restart_count=0"
+    },
+    {
+      "name": "phase2_rollout_resolution",
+      "pass": true,
+      "detail": "resolved_terminal=6ba167dd resolved_session=cao-e2e-assign-64c4a778"
+    },
+    {
+      "name": "phase2_repin_runtime",
+      "pass": true,
+      "detail": "owner_pid=3790466 rollout_terminal_ids= rollout_session_names=cao-e2e-assign-64c4a778"
+    },
+    {
+      "name": "phase2_terminal_preflight",
+      "pass": true,
+      "detail": "terminal=6ba167dd"
+    },
+    {
+      "name": "phase2_scope_narrowing",
+      "pass": false,
+      "detail": "guardrail still failing after terminal-only scope"
+    }
+  ],
+  "artifacts": [
+    {
+      "kind": "run_manifest",
+      "path": "/home/charl/projects/ORCH-SYSTEM/CARO-FORK/work/canary-snapshots/run-manifest-20260217T020253Z-f45271.json"
+    },
+    {
+      "kind": "pin_verify",
+      "path": "/home/charl/projects/ORCH-SYSTEM/CARO-FORK/work/canary-snapshots/pin-verify-20260217T020253Z-f45271.json"
+    },
+    {
+      "kind": "lease_meta",
+      "path": "/tmp/caro-9889.lock.json"
+    },
+    {
+      "kind": "runtime_log",
+      "path": "/home/charl/projects/ORCH-SYSTEM/CARO-FORK/work/canary-snapshots/caro-runtime-20260217T020253Z-f45271.log"
+    }
+  ],
+  "started_at_utc": "2026-02-17T02:02:53Z",
+  "ended_at_utc": "2026-02-17T02:03:17Z",
+  "runtime_log_path": "/home/charl/projects/ORCH-SYSTEM/CARO-FORK/work/canary-snapshots/caro-runtime-20260217T020253Z-f45271.log",
+  "verify_report_path": "",
+  "baseline_path": "",
+  "end_path": "",
+  "verify_exit_code": 1,
+  "window_valid": false
+}
