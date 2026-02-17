@@ -33,4 +33,11 @@ class Terminal(BaseModel):
     status: Optional[TerminalStatus] = Field(
         None, description="Current terminal status (live only)"
     )
+    status_source: Optional[str] = Field(None, description="Status source: jsonl/tmux/hybrid")
+    mapping_confidence: Optional[str] = Field(
+        None, description="Session mapping confidence: high/low/none"
+    )
+    status_reason_code: Optional[str] = Field(
+        None, description="Status mapping reason code for diagnostics"
+    )
     last_active: Optional[datetime] = Field(None, description="Last active timestamp")
