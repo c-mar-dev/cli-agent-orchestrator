@@ -3,7 +3,6 @@
 import logging
 import os
 import subprocess
-import uuid
 from typing import Dict, List, Optional
 
 import libtmux
@@ -53,8 +52,9 @@ class TmuxClient:
         try:
             working_directory = self._resolve_and_validate_working_directory(working_directory)
 
-            environment = os.environ.copy()
-            environment["CAO_TERMINAL_ID"] = terminal_id
+            # Keep environment payload minimal to avoid tmux command argv overflow
+            # on hosts with very large inherited environments.
+            environment = {"CAO_TERMINAL_ID": terminal_id}
 
             session = self.server.new_session(
                 session_name=session_name,
@@ -107,26 +107,36 @@ class TmuxClient:
             raise
 
     def send_keys(self, session_name: str, window_name: str, keys: str) -> None:
-        """Send keys to window using tmux paste-buffer for instant delivery.
+        """Send keys to window using tmux send-keys -l for literal delivery.
 
-        Uses load-buffer + paste-buffer instead of chunked send-keys to avoid
-        slow character-by-character input and special character interpretation.
-        The -p flag enables bracketed paste mode so multi-line content is treated
-        as a single input rather than submitting on each newline.
+        Long provider bootstrap commands can exceed platform argument limits when sent
+        in a single subprocess call. Split literal payload into bounded chunks and
+        deliver sequentially before final Enter.
         """
         target = f"{session_name}:{window_name}"
-        buf_name = f"cao_{uuid.uuid4().hex[:8]}"
         try:
-            logger.info(f"send_keys: {target} - keys: {keys}")
-            subprocess.run(
-                ["tmux", "load-buffer", "-b", buf_name, "-"],
-                input=keys.encode(),
-                check=True,
+            chunk_size_env = os.environ.get("CAO_TMUX_LITERAL_CHUNK_SIZE", "1200")
+            chunk_size = int(chunk_size_env)
+            if chunk_size <= 0:
+                raise ValueError(
+                    f"Invalid CAO_TMUX_LITERAL_CHUNK_SIZE={chunk_size_env}; expected positive int"
+                )
+
+            logger.info(
+                "send_keys target=%s payload_len=%d chunk_size=%d",
+                target,
+                len(keys),
+                chunk_size,
             )
-            subprocess.run(
-                ["tmux", "paste-buffer", "-p", "-b", buf_name, "-t", target],
-                check=True,
-            )
+
+            if keys:
+                for i in range(0, len(keys), chunk_size):
+                    chunk = keys[i : i + chunk_size]
+                    subprocess.run(
+                        ["tmux", "send-keys", "-t", target, "-l", chunk],
+                        check=True,
+                    )
+
             subprocess.run(
                 ["tmux", "send-keys", "-t", target, "Enter"],
                 check=True,
@@ -135,11 +145,6 @@ class TmuxClient:
         except Exception as e:
             logger.error(f"Failed to send keys to {target}: {e}")
             raise
-        finally:
-            subprocess.run(
-                ["tmux", "delete-buffer", "-b", buf_name],
-                check=False,
-            )
 
     def get_history(
         self, session_name: str, window_name: str, tail_lines: Optional[int] = None

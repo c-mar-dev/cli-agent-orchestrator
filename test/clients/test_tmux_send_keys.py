@@ -1,4 +1,4 @@
-"""Tests for TmuxClient.send_keys paste-buffer implementation."""
+"""Tests for TmuxClient.send_keys literal implementation."""
 
 from unittest.mock import call, patch
 
@@ -20,112 +20,80 @@ def mock_subprocess():
         yield mock
 
 
-@pytest.fixture
-def mock_uuid():
-    with patch("cli_agent_orchestrator.clients.tmux.uuid") as mock:
-        mock.uuid4.return_value.hex = "abcd1234efgh"
-        yield mock
-
-
 class TestSendKeys:
-    """Tests for the paste-buffer based send_keys implementation."""
+    """Tests for the literal send-keys implementation."""
 
-    def test_basic_message(self, client, mock_subprocess, mock_uuid):
-        """Sends load-buffer, paste-buffer -p, send-keys Enter, delete-buffer."""
+    def test_basic_message(self, client, mock_subprocess):
+        """Sends literal message and Enter."""
         client.send_keys("sess", "win", "hello")
 
-        assert mock_subprocess.run.call_count == 4
+        assert mock_subprocess.run.call_count == 2
         calls = mock_subprocess.run.call_args_list
 
-        # load-buffer with unique name and message as stdin
+        # literal send-keys
         assert calls[0] == call(
-            ["tmux", "load-buffer", "-b", "cao_abcd1234", "-"],
-            input=b"hello",
-            check=True,
-        )
-        # paste-buffer with -p (bracketed paste)
-        assert calls[1] == call(
-            ["tmux", "paste-buffer", "-p", "-b", "cao_abcd1234", "-t", "sess:win"],
+            ["tmux", "send-keys", "-t", "sess:win", "-l", "hello"],
             check=True,
         )
         # send Enter
-        assert calls[2] == call(
+        assert calls[1] == call(
             ["tmux", "send-keys", "-t", "sess:win", "Enter"],
             check=True,
         )
-        # delete-buffer (best-effort)
-        assert calls[3] == call(
-            ["tmux", "delete-buffer", "-b", "cao_abcd1234"],
-            check=False,
-        )
 
-    def test_multiline_message(self, client, mock_subprocess, mock_uuid):
-        """Multi-line content is sent as-is; -p flag handles newlines."""
+    def test_multiline_message(self, client, mock_subprocess):
+        """Multi-line content is sent as a single literal payload."""
         msg = "line 1\nline 2\nline 3"
         client.send_keys("sess", "win", msg)
 
-        load_call = mock_subprocess.run.call_args_list[0]
-        assert load_call == call(
-            ["tmux", "load-buffer", "-b", "cao_abcd1234", "-"],
-            input=msg.encode(),
-            check=True,
-        )
+        send_call = mock_subprocess.run.call_args_list[0]
+        assert send_call == call(["tmux", "send-keys", "-t", "sess:win", "-l", msg], check=True)
 
-    def test_special_characters(self, client, mock_subprocess, mock_uuid):
-        """Quotes, backticks, dollars are sent raw (no tmux key interpretation)."""
+    def test_special_characters(self, client, mock_subprocess):
+        """Quotes, backticks, dollars are sent raw (no key interpretation)."""
         msg = """He said "hello" and ran `cmd` with $VAR"""
         client.send_keys("sess", "win", msg)
 
-        load_call = mock_subprocess.run.call_args_list[0]
-        assert load_call[1]["input"] == msg.encode()
+        send_call = mock_subprocess.run.call_args_list[0]
+        assert send_call[0][0] == ["tmux", "send-keys", "-t", "sess:win", "-l", msg]
 
-    def test_empty_message(self, client, mock_subprocess, mock_uuid):
-        """Empty string still goes through the full pipeline."""
+    def test_empty_message(self, client, mock_subprocess):
+        """Empty string means just press Enter (no literal payload chunk)."""
         client.send_keys("sess", "win", "")
 
-        assert mock_subprocess.run.call_count == 4
-        load_call = mock_subprocess.run.call_args_list[0]
-        assert load_call[1]["input"] == b""
-
-    def test_buffer_cleanup_on_error(self, client, mock_subprocess, mock_uuid):
-        """Buffer is deleted even when paste-buffer fails."""
-        mock_subprocess.run.side_effect = [
-            None,  # load-buffer succeeds
-            Exception("paste failed"),  # paste-buffer fails
-            None,  # delete-buffer in finally
-        ]
-
-        with pytest.raises(Exception, match="paste failed"):
-            client.send_keys("sess", "win", "msg")
-
-        # delete-buffer still called in finally block
-        last_call = mock_subprocess.run.call_args_list[-1]
-        assert last_call == call(
-            ["tmux", "delete-buffer", "-b", "cao_abcd1234"],
-            check=False,
+        assert mock_subprocess.run.call_count == 1
+        assert mock_subprocess.run.call_args_list[0] == call(
+            ["tmux", "send-keys", "-t", "sess:win", "Enter"],
+            check=True,
         )
 
-    def test_unique_buffer_per_call(self, client, mock_subprocess):
-        """Each call gets a unique buffer name to prevent race conditions."""
-        with patch("cli_agent_orchestrator.clients.tmux.uuid") as mock_uuid:
-            mock_uuid.uuid4.return_value.hex = "aaaa1111bbbb"
-            client.send_keys("sess", "win", "msg1")
+    def test_error_bubbles_up(self, client, mock_subprocess):
+        """Exceptions from tmux calls are surfaced to caller."""
+        mock_subprocess.run.side_effect = [
+            Exception("send failed"),
+        ]
 
-            mock_uuid.uuid4.return_value.hex = "cccc2222dddd"
-            client.send_keys("sess", "win", "msg2")
+        with pytest.raises(Exception, match="send failed"):
+            client.send_keys("sess", "win", "msg")
 
-        calls = mock_subprocess.run.call_args_list
-        # First call uses cao_aaaa1111
-        assert calls[0][0][0][3] == "cao_aaaa1111"
-        # Second call (index 4, after 4 calls from first send_keys) uses cao_cccc2222
-        assert calls[4][0][0][3] == "cao_cccc2222"
-
-    def test_large_message(self, client, mock_subprocess, mock_uuid):
-        """Large messages go through in a single load-buffer call (no chunking)."""
+    def test_large_message(self, client, mock_subprocess, monkeypatch):
+        """Large messages are chunked into bounded literal send-keys calls."""
+        monkeypatch.setenv("CAO_TMUX_LITERAL_CHUNK_SIZE", "4096")
         msg = "X" * 50000
         client.send_keys("sess", "win", msg)
 
-        # Still exactly 4 subprocess calls — no chunking
-        assert mock_subprocess.run.call_count == 4
-        load_call = mock_subprocess.run.call_args_list[0]
-        assert len(load_call[1]["input"]) == 50000
+        expected_chunks = (len(msg) + 4095) // 4096
+        assert mock_subprocess.run.call_count == expected_chunks + 1
+
+        send_calls = mock_subprocess.run.call_args_list[:-1]
+        reconstructed = ""
+        for send_call in send_calls:
+            args = send_call[0][0]
+            assert args[0:5] == ["tmux", "send-keys", "-t", "sess:win", "-l"]
+            reconstructed += args[5]
+
+        assert reconstructed == msg
+        assert mock_subprocess.run.call_args_list[-1] == call(
+            ["tmux", "send-keys", "-t", "sess:win", "Enter"],
+            check=True,
+        )
