@@ -414,6 +414,16 @@ result = await assign(
 
 Q CLI includes current working directory in context, causing agents to hallucinate/infer directories when the parameter is available. Disabling by default prevents this hallucination for users who don't need explicit directory control.
 
+## Runtime Profile
+
+CAO supports a persistent runtime profile at `~/.aws/cli-agent-orchestrator/profile.json` for user-level defaults and rollout tuning.
+
+- Set defaults for `provider`, `working_directory`, and `status_source`
+- Configure JSONL rollout scope and gate thresholds
+- Configure inbox retry/backoff defaults and approval queue behavior
+
+See [docs/runtime-profile.md](docs/runtime-profile.md) for the schema and examples.
+
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.

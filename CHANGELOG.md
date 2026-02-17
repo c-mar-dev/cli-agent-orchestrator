@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+
+- Inbox DB telemetry counters exposed via `GET /diagnostics/inbox/telemetry` (`db` section).
+- Runtime profile default `inbox.requeue_terminal_state_default` / `CAO_INBOX_REQUEUE_TERMINAL_STATE_DEFAULT`.
+- Repo-local session log convention docs under `docs/session-logs/`.
+
+### Changed
+
+- Inbox idempotency creation path is now conflict-safe (`INSERT OR IGNORE` + canonical fetch).
+- Flow creation now validates provider values against supported provider list.
+- Session deletion now uses terminal-level delete path, preserving approval cleanup behavior.
+- API docs and runtime profile docs aligned with current endpoint and contract surface.
+
+### Fixed
+
+- Enforced unique inbox idempotency key per receiver with deterministic duplicate-pruning migration.
+- Added explicit dead-letter/failed requeue semantics via `requeue_terminal_state`.
+- Terminal deletion now attempts pending approval resolution even when DB delete errors.
+- Orchestration test bridge in `test/orchestration/test_handoff_flow.py` now supports timeout kwargs and updated `wait_until_terminal_status` kwargs.
+
+### Verification
+
+- `uv run pytest -q test/orchestration/test_handoff_flow.py`
+- `uv run pytest -q -m "not e2e"` -> `399 passed, 16 skipped, 5 deselected`
+- `uv run python -m compileall -q src`
+
 ## [1.0.0] - 2026-01-23
 
 ### Added
@@ -66,5 +95,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump to v0.51.0, update method name (#31)
 
 - accept optional U+03BB (λ) after % in kiro and q CLIs (#44)
-
 
