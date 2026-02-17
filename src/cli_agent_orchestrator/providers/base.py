@@ -83,3 +83,19 @@ class BaseProvider(ABC):
     def _update_status(self, status: TerminalStatus) -> None:
         """Update internal status."""
         self._status = status
+
+    def uses_jsonl_status(self) -> bool:
+        """Whether provider prefers JSONL status detection over terminal regex."""
+        return False
+
+    def get_tmux_status(self, tail_lines: Optional[int] = None) -> Optional[TerminalStatus]:
+        """Return tmux-only status for telemetry comparison.
+
+        Providers that support JSONL should override this with their legacy
+        terminal parsing logic.
+        """
+        return None
+
+    def get_provider_session_hint(self) -> Optional[str]:
+        """Return provider session ID hint captured at startup, when available."""
+        return None

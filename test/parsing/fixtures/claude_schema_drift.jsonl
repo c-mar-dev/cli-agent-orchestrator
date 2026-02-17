@@ -1,0 +1,4 @@
+{"type":"user","timestamp":"2026-02-16T18:00:00.000Z","sessionId":"11111111-2222-3333-4444-555555555555","message":{"role":"user","content":"hello"}}
+{"type":"progress","timestamp":"2026-02-16T18:00:00.500Z","data":{"type":"agent_progress","message":"Thinking"}}
+{"type":"mystery_event","timestamp":"2026-02-16T18:00:00.750Z","payload":{"unexpected":"shape"}}
+{"type":"assistant","timestamp":"2026-02-16T18:00:01.000Z","sessionId":"11111111-2222-3333-4444-555555555555","message":{"role":"assistant","content":[{"type":"text","text":"done"}]}}

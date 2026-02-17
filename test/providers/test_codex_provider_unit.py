@@ -48,10 +48,65 @@ class TestCodexProviderInitialization:
     def test_initialize_codex_timeout(self, mock_tmux, mock_wait_shell, mock_wait_status):
         mock_wait_shell.return_value = True
         mock_wait_status.return_value = False
+        mock_tmux.get_history.return_value = ""
 
         provider = CodexProvider("test1234", "test-session", "window-0", None)
 
         with pytest.raises(TimeoutError, match="Codex initialization timed out"):
+            provider.initialize()
+
+    @patch("cli_agent_orchestrator.providers.codex.wait_until_status")
+    @patch("cli_agent_orchestrator.providers.codex.wait_for_shell")
+    @patch("cli_agent_orchestrator.providers.codex.tmux_client")
+    def test_initialize_accepts_startup_banner(self, mock_tmux, mock_wait_shell, mock_wait_status):
+        mock_wait_shell.return_value = True
+        mock_wait_status.return_value = False
+        mock_tmux.get_history.return_value = (
+            "OpenAI Codex v0.101.0 (research preview)\n"
+            "workdir: /home/user/repo\n"
+            "session id: 019c68c9-0e39-72b0-ad17-23d71c9926bc\n"
+        )
+
+        provider = CodexProvider("test1234", "test-session", "window-0", None)
+        result = provider.initialize()
+
+        assert result is True
+        assert provider.get_provider_session_hint() == "019c68c9-0e39-72b0-ad17-23d71c9926bc"
+
+    @patch("cli_agent_orchestrator.providers.codex.wait_until_status")
+    @patch("cli_agent_orchestrator.providers.codex.wait_for_shell")
+    @patch("cli_agent_orchestrator.providers.codex.tmux_client")
+    def test_initialize_extracts_session_id_when_idle_detected(
+        self, mock_tmux, mock_wait_shell, mock_wait_status
+    ):
+        mock_wait_shell.return_value = True
+        mock_wait_status.return_value = True
+        mock_tmux.get_history.return_value = (
+            "OpenAI Codex v0.101.0\n"
+            "session id: 019c68c9-0e39-72b0-ad17-23d71c9926bc\n"
+            "❯\n"
+        )
+
+        provider = CodexProvider("test1234", "test-session", "window-0", None)
+        result = provider.initialize()
+
+        assert result is True
+        assert provider.get_provider_session_hint() == "019c68c9-0e39-72b0-ad17-23d71c9926bc"
+
+    @patch("cli_agent_orchestrator.providers.codex.wait_until_status")
+    @patch("cli_agent_orchestrator.providers.codex.wait_for_shell")
+    @patch("cli_agent_orchestrator.providers.codex.tmux_client")
+    def test_initialize_detects_trust_prompt(self, mock_tmux, mock_wait_shell, mock_wait_status):
+        mock_wait_shell.return_value = True
+        mock_wait_status.return_value = False
+        mock_tmux.get_history.return_value = (
+            "Do you trust the contents of this directory?\n"
+            "Press enter to continue\n"
+        )
+
+        provider = CodexProvider("test1234", "test-session", "window-0", None)
+
+        with pytest.raises(TimeoutError, match="blocked by trust prompt"):
             provider.initialize()
 
 
@@ -227,6 +282,31 @@ class TestCodexProviderStatusDetection:
         status = provider.get_status()
 
         assert status == TerminalStatus.ERROR
+
+    @patch("cli_agent_orchestrator.providers.codex.tmux_client")
+    def test_get_status_idle_on_startup_banner_without_prompt(self, mock_tmux):
+        mock_tmux.get_history.return_value = (
+            "OpenAI Codex v0.101.0 (research preview)\n"
+            "workdir: /home/user/repo\n"
+            "session id: 019c68c9-0e39-72b0-ad17-23d71c9926bc\n"
+        )
+
+        provider = CodexProvider("test1234", "test-session", "window-0")
+        status = provider.get_status()
+
+        assert status == TerminalStatus.IDLE
+
+    @patch("cli_agent_orchestrator.providers.codex.tmux_client")
+    def test_get_status_waiting_user_answer_on_trust_prompt(self, mock_tmux):
+        mock_tmux.get_history.return_value = (
+            "Do you trust the contents of this directory?\n"
+            "Press enter to continue\n"
+        )
+
+        provider = CodexProvider("test1234", "test-session", "window-0")
+        status = provider.get_status()
+
+        assert status == TerminalStatus.WAITING_USER_ANSWER
 
 
 class TestCodexProviderMessageExtraction:
